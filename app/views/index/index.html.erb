@@ -15,30 +15,57 @@
   </aside>
 
   <section class="content-area">
-    <header>
-      <a class="menu-icon" href="#"><span class="icon-list"></span></a>
-      <h1 class="headline">Commits</h1>
+    <header class="app-header">
+      <a class="menu-icon" href="#" data-ember-action="2">
+        <svg viewBox="0 0 21 14" class="icon menu"><use xlink:href="#icon-menu"></use></svg>
+      </a>
+      <h1 class="headline">Projects</h1>
     </header>
-    <table class="sub-header">
-      <thead>
-        <tr>
-          <th width="10%">Project</th>
-          <th width="10%">Time Spent</th>
-          <th width="20%">Activity</th>
-          <th width="20%">Author</th>
-          <th width="20%" align="right"></th>
-        </tr>
-      </thead>
-      <tbody>
-          <% @commit_array.each do |commit_info| %>
-            <tr>
-              <td><%= commit_info[:commit_json]["project"] %></td>
-              <td><%= commit_info[:commit_json]["time"] %></td>
-              <td><%= commit_info[:commit_json]["type"] %></td>
-              <td><%= commit_info[:commit_obj].author.name %></td>
-            </tr>
-          <% end %>
-      </tbody>
-    </table>
+
+    <section class="transaction-list content">
+      <% @projects.each do |project_name, project_commits| %>
+        <section class="timeline-section month clearfix">
+          <div class="action-column"></div>
+
+          <div class="bubble-container">
+            <div class="bubble"></div>
+          </div>
+
+          <div class="content-column month-header">
+            <span><%= project_name %></span>
+            <span class="amount">Phase 1</span>
+          </div>
+
+          <section class="timeline-section day clearfix">
+            <div class="action-column">
+              <span class="date">08/07/2014</span>
+            </div>
+
+            <div class="bubble-container">
+              <div class="bubble"></div>
+            </div>
+
+            <div class="content-column">
+              <div class="day-header">
+                <span>July 8th</span>
+                <span class="amount">8 hours</span>
+              </div>
+
+              <ul class="unstyled">
+                <% project_commits.each do |commit_info| %>
+                  <li class="transaction clearfix">
+                    <span class="time"><%= commit_info["author"] %></span>
+                    <span class="transaction_code"><%= commit_info["time"] %> minutes</span>
+                    <span class="amount" data-bindattr-6="6"><%= commit_info["type"] %></span>
+                    <svg viewBox="0 0 36 60" class="icon arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
+                    </a>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </section>
+        </section>
+      <% end %>
+    </section>
   </section>
 </div>
