@@ -3,6 +3,13 @@ timetracking
 
 Logging of time spent on tasks
 
+Some Setup
+----------
+
+```
+git config commit.template ./template.json
+```
+
 Recording time
 --------------
 
