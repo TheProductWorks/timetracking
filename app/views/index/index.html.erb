@@ -23,17 +23,19 @@
       <thead>
         <tr>
           <th width="10%">Project</th>
-          <th width="50%">Time Spent</th>
+          <th width="10%">Time Spent</th>
           <th width="20%">Activity</th>
+          <th width="20%">Author</th>
           <th width="20%" align="right"></th>
         </tr>
       </thead>
       <tbody>
-          <% @commits.each do |commit| %>
+          <% @commit_array.each do |commit_info| %>
             <tr>
-              <td><%= commit["project"] %></td>
-              <td><%= commit["time"] %></td>
-              <td><%= commit["type"] %></td>
+              <td><%= commit_info[:commit_json]["project"] %></td>
+              <td><%= commit_info[:commit_json]["time"] %></td>
+              <td><%= commit_info[:commit_json]["type"] %></td>
+              <td><%= commit_info[:commit_obj].author.name %></td>
             </tr>
           <% end %>
       </tbody>

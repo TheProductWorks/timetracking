@@ -1,12 +1,15 @@
 class IndexController < ApplicationController
   def index
     tt = Git.open(".", :log => Logger.new(STDOUT))
-    @commits = []
+    @commit_array = []
 
     tt.log.each do |commit|
       begin
-        commit = JSON.parse(commit.message)
-        @commits << commit
+        commit_json = JSON.parse(commit.message)
+        @commit_array << {
+          commit_json: commit_json,
+          commit_obj: commit
+        }
       rescue JSON::ParserError
         puts "skipping non JSON commit message"
       end
