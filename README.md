@@ -8,7 +8,11 @@ Some Setup
 
 ```
 git config commit.template ./template.json
+
+bundle install
 ```
+
+```rails s``` to run the app.
 
 Recording time
 --------------
