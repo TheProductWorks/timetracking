@@ -1,0 +1,41 @@
+<div class="main">
+  <aside class="menu side-menu">
+    <a href="#" class="logo">SumUp</a>
+    <nav>
+      <ul class="unstyled">
+        <li>Midwife</li>
+        <li>QMD</li>
+      </ul>
+    </nav>
+    <nav class="sub-menu">
+      <ul class="unstyled">
+        <li>Sub statistics maybe?</li>
+      </ul>
+    </nav>
+  </aside>
+
+  <section class="content-area">
+    <header>
+      <a class="menu-icon" href="#"><span class="icon-list"></span></a>
+      <h1 class="headline">Commits</h1>
+    </header>
+    <table class="sub-header">
+      <thead>
+        <tr>
+          <th width="10%">Project</th>
+          <th width="50%">Time Spent</th>
+          <th width="20%">Activity</th>
+          <th width="20%" align="right"></th>
+        </tr>
+      </thead>
+      <tbody>
+          <% @commits.each do |commit| %>
+            <td><%= commit["project"] %></td>
+            <td><%= commit["time"] %></td>
+            <td><%= commit["type"] %></td>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
