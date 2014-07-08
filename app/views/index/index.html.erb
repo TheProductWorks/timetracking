@@ -30,11 +30,12 @@
       </thead>
       <tbody>
           <% @commits.each do |commit| %>
-            <td><%= commit["project"] %></td>
-            <td><%= commit["time"] %></td>
-            <td><%= commit["type"] %></td>
+            <tr>
+              <td><%= commit["project"] %></td>
+              <td><%= commit["time"] %></td>
+              <td><%= commit["type"] %></td>
+            </tr>
           <% end %>
-        </tr>
       </tbody>
     </table>
   </section>
