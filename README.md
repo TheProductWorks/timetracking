@@ -13,7 +13,11 @@ git config commit.template ./template.json
 Recording time
 --------------
 
-To record time you've spent on a task then write a commit message with any of the options below.
+To record time you've spent on a task then make an empty commit with any of the options below in the message.
+
+To make an empty commit: ```git commit --allow-empty```
+
+Add a nice alias for it in ~./bash_profile: ```alias come='git commit --allow-empty'```
 
 ```
 {
