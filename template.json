@@ -1,5 +1,7 @@
 {
-  "project": "",
-  "time": 60,
-  "type": ""
+  "project": "<some freehand project/repo name>",
+  "feature": "<some feature/milestone name>
+  "time": "<time spent in hours, min unit 0.5 hours",
+  "bighand": "<2 letter code indicating main activity>"
+  "littlehand": "<single character code indicating more specific task to the main activity>"
 }
