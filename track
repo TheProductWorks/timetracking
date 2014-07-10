@@ -3,22 +3,53 @@
 require 'optparse'
 require 'json'
 
-template = {}
+def read_template tpl
+  if File.exist?(tpl)
+    JSON.parse(File.read(tpl))
+  end
+end
 
+# Default dot file is .track.json
+DEFAULT_TEMPLATE = {"project" => "", "feature" => "", "time" => ""}
+DEFAULT_TEMPLATE_FILE = ".track.json"
+
+# Try reading the template file
+template = read_template(DEFAULT_TEMPLATE_FILE) || DEFAULT_TEMPLATE
+
+# Options
 OptionParser.new do |opts|
-  opts.banner = "Usage: track [template]"
+  opts.banner = "Usage: track [options]"
+
+  opts.on("-f", "--file TEMPLATE_FILE", "Template file") do |tpl|
+    template = read_template(tpl) || template
+  end
 
   opts.on("-p", "--project PROJECT_NAME", "Project name") do |project|
     template["project"] = project
   end
 
   opts.on("-t", "--time TIME", Integer, "Time spent (in hours)") do |time|
-    template[:time] = time
+    template["time"] = time
   end
 
   opts.on("-a", "--activity ACTIVITY", "Type of activity") do |activity|
-    template[:activity] = activity
+    template["activity"] = activity
+  end
+
+  opts.on_tail("-h", "--help", "This help") do
+    puts opts
+    exit
   end
 end.parse!
 
+# Check the entered in data either from the default file or from the command line
+template.each do |key, value| 
+  if value.nil? || value === ""
+    puts "Enter in #{key}: "
+    template[key] = STDIN.gets.gsub(/\n/,'')
+  end
+end
+
+puts "Template filled: #{template.to_json}"
+puts `git pull origin master`
 puts `git commit --allow-empty -m '#{template.to_json}'`
