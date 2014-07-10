@@ -22,15 +22,17 @@ puts `cd #{target} && git checkout master && git pull origin master`
 puts "> Add track to your path [Y/n]"
 answer = STDIN.gets.gsub(/\n/,'').downcase
 unless ["n", "no"].include?(answer)
+  puts `rm -f /usr/local/bin/track`
   puts `ln -s #{target}/track /usr/local/bin/track`
 end
 puts "> Git hooks"
 puts "Would you like to add track as a post commit hook? [Y/n]"
 answer = STDIN.gets.gsub(/\n/,'').downcase
 unless ["n", "no"].include?(answer)
-  # TODO list or enter in git repos and add the hook in.
-  # COMMANDS:
-  # :> $REPO/.git/hooks/post-commit
-  # echo "#!/bin/bash\n/usr/local/bin/track" >> $REPO/.git/hooks/post-commit
-  # chmod a+x $REPO/.git/hooks/post-commit
+  puts <<-EOF
+Go to your selected repo and run the following commands:
+  $ :> $REPO/.git/hooks/post-commit
+  $ echo "#!/bin/bash\n/usr/local/bin/track" >> $REPO/.git/hooks/post-commit
+  $ chmod a+x $REPO/.git/hooks/post-commit
+EOF
 end
