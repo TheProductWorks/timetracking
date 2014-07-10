@@ -46,7 +46,7 @@ end.parse!
 template.each do |key, value| 
   if value.nil? || value === ""
     puts "Enter in #{key}: "
-    template[key] = STDIN.gets.gsub(/\n/,'')
+    template[key] = STDIN.gets.to_s.gsub(/\n/,'')
   end
 end
 
