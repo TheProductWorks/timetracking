@@ -11,7 +11,7 @@ end
 
 # Default dot file is .track.json
 DEFAULT_TEMPLATE = {"project" => "", "feature" => "", "time" => ""}
-DEFAULT_TEMPLATE_FILE = ".track.json"
+DEFAULT_TEMPLATE_FILE = "#{File.dirname(__FILE__)}/.track.json"
 
 # Try reading the template file
 template = read_template(DEFAULT_TEMPLATE_FILE) || DEFAULT_TEMPLATE
@@ -42,14 +42,21 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-# Check the entered in data either from the default file or from the command line
-template.each do |key, value| 
-  if value.nil? || value === ""
-    puts "Enter in #{key}: "
-    template[key] = STDIN.gets.gsub(/\n/,'')
+begin
+  # Check the entered in data either from the default file or from the command line
+  template.each do |key, value| 
+    if value.nil? || value === ""
+      puts "Enter in #{key}: "
+      template[key] = STDIN.gets.to_s.gsub(/\n/,'')
+    else
+      puts "#{key}: #{value}"
+    end
   end
-end
 
-puts "Template filled: #{template.to_json}"
-puts `git pull origin master`
-puts `git commit --allow-empty -m '#{template.to_json}'`
+  puts "Template filled: #{template.to_json}"
+  puts `cd #{File.dirname(__FILE__)} && git checkout origin master && git pull origin master`
+  puts `cd #{File.dirname(__FILE__)} && git commit --allow-empty -m '#{template.to_json}'`
+  puts `cd #{File.dirname(__FILE__)} && git push origin master`
+rescue Interrupt => e
+  puts "Aborted"
+end

@@ -14,6 +14,20 @@ bundle install
 
 ```rails s``` to run the app.
 
+Setup with script
+-----------------
+
+```bash
+$ curl -sSL https://raw.githubusercontent.com/CrazyHorseHQ/timetracking/gettracker/gettracker.rb > gettracker.rb
+$ chmod u+x gettracker.rb
+$ ./gettracker.rb
+```
+
+The script will
+* Install the repo into $HOME/.timetracking
+* Setup the executable `track`
+* Show you how to setup the githook (manually for now)
+
 Recording time
 --------------
 
