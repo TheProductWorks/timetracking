@@ -22,8 +22,9 @@ puts `cd #{target} && git checkout master && git pull origin master`
 puts "> Add track to your path [Y/n]"
 answer = STDIN.gets.gsub(/\n/,'').downcase
 unless ["n", "no"].include?(answer)
-  puts `rm -f /usr/local/bin/track`
-  puts `ln -s #{target}/track /usr/local/bin/track`
+  unless `source $HOME/.bashrc && echo $PATH`.match("timetracking")
+    puts `echo "export PATH=#{target}/bin:\\$PATH" >> $HOME/.bashrc`
+  end
 end
 puts "> Git hooks"
 puts "Would you like to add track as a post commit hook? [Y/n]"
@@ -32,7 +33,7 @@ unless ["n", "no"].include?(answer)
   puts <<-EOF
 Go to your selected repo and run the following commands:
   $ :> $REPO/.git/hooks/post-commit
-  $ echo "#!/bin/bash\n/usr/local/bin/track" >> $REPO/.git/hooks/post-commit
+  $ echo "#!/bin/bash\ntrack" >> $REPO/.git/hooks/post-commit
   $ chmod a+x $REPO/.git/hooks/post-commit
 EOF
 end
