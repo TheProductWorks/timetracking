@@ -54,7 +54,7 @@ begin
   end
 
   puts "Template filled: #{template.to_json}"
-  puts `cd #{File.dirname(__FILE__)} && git checkout origin master && git pull origin master`
+  puts `cd #{File.dirname(__FILE__)} && git checkout master && git pull origin master`
   puts `cd #{File.dirname(__FILE__)} && git commit --allow-empty -m '#{template.to_json}'`
   puts `cd #{File.dirname(__FILE__)} && git push origin master`
 rescue Interrupt => e
